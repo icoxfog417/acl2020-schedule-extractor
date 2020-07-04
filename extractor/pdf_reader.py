@@ -11,12 +11,13 @@ class PDFReader():
 
     def iterate_page_texts(self,
                            start_page=1,
-                           end_page=None):
+                           end_page=None,
+                           line_margin=0.19):
         """
         Generate texts in each page.
         """
 
-        pages = extract_pages(self.path, laparams=LAParams())
+        pages = extract_pages(self.path, laparams=LAParams(line_margin=line_margin))
         page_number = 0
         for p in pages:
             page_number += 1

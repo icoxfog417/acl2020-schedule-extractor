@@ -22,7 +22,6 @@ class ScheduleReader():
         index = PaperIndex()
         papers = []
         next_is_session = False
-        log_start = False
         for texts in reader.iterate_page_texts(start, end):
             for t in texts:
                 line = t.strip()

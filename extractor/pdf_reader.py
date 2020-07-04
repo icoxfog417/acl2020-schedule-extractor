@@ -6,15 +6,12 @@ class PDFReader():
     """
     Extract texts from PDF
     """
-    def __init__(self,
-                 pdf_path,
-                 start_page=1,
-                 end_page=None):
+    def __init__(self, pdf_path):
         self.path = pdf_path
-        self.start_page = start_page
-        self.end_page = end_page
 
-    def iterate_page_texts(self):
+    def iterate_page_texts(self,
+                           start_page=1,
+                           end_page=None):
         """
         Generate texts in each page.
         """
@@ -23,9 +20,9 @@ class PDFReader():
         page_number = 0
         for p in pages:
             page_number += 1
-            if self.start_page > 0 and page_number < self.start_page:
+            if start_page > 0 and page_number < start_page:
                 continue
-            elif self.end_page is not None and page_number > self.end_page:
+            elif end_page is not None and page_number > end_page:
                 break
             texts = [element.get_text() for element in p
                      if isinstance(element, LTTextContainer)]

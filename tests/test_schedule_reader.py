@@ -36,3 +36,4 @@ class TestScheduleReader(unittest.TestCase):
         for p in papers:
             print(p.to_json())
         self.assertEqual(len(papers), 19)
+        # raise Exception("X")

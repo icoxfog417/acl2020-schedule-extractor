@@ -17,14 +17,13 @@ class ScheduleReader():
     def iterate_papers(self, start_page=-1, end_page=None):
         start = start_page if start_page > 0 else self.start_default
         end = end_page if end_page is not None else self.end_default
-        reader = PDFReader(self.path, start, end)
+        reader = PDFReader(self.path)
 
         index = PaperIndex()
         papers = []
         next_is_session = False
-        for texts in reader.iterate_page_texts():
+        for texts in reader.iterate_page_texts(start, end):
             for t in texts:
-                print("> {}".format(t.split("\n")))
                 line = t.strip()
                 if index.set_day(line):
                     continue
@@ -36,7 +35,7 @@ class ScheduleReader():
                     next_is_session = False
                     continue
 
-                paper = Paper.parse(t, index)
+                paper = Paper.parse(t, index.clone())
                 if paper is not None:
                     papers.append(paper)
 
@@ -89,9 +88,8 @@ class PaperIndex():
         self.time = None
         self.session = None
 
-    @classmethod
-    def clone(cls, paper_index):
-        return cls(paper_index.day, paper_index.time, paper_index.session)
+    def clone(self):
+        return PaperIndex(self.day, self.time, self.session)
 
     def is_full(self):
         indexes = (self.day, self.time, self.session)

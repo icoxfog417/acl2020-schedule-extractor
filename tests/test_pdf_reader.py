@@ -7,11 +7,10 @@ from extractor.pdf_reader import PDFReader
 class TestPDFReader(unittest.TestCase):
 
     def test_read_page(self):
-        reader = PDFReader(self._path, start_page=27, end_page=50)
+        reader = PDFReader(self._path)
 
         text_stack = []
-        for texts in reader.iterate_page_texts():
-            self.assertGreater(len(texts), 0)
+        for texts in reader.iterate_page_texts(start_page=27, end_page=50):
             text_stack.append(texts)
 
         self.assertEqual(len(text_stack), 50 - 27 + 1)
@@ -21,7 +20,7 @@ class TestPDFReader(unittest.TestCase):
     def test_read_schedule(self):
         reader = PDFReader(self._path)
         count = 1
-        for texts in reader.iterate_page_texts():
+        for texts in reader.iterate_page_texts(start_page=74):
             if count == 1:
                 self.assertGreater(len(texts), 0)
                 self.assertTrue("Monday, July 6" in " ".join(texts))

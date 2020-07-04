@@ -1,1 +1,2 @@
 pdfminer.six==20200517
+pandas==1.0.5

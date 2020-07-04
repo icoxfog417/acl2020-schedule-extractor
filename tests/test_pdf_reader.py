@@ -1,11 +1,10 @@
 import unittest
 import pytest
 from extractor.pdf_reader import PDFReader
-from extractor.schedule_reader import ScheduleReader
 
 
 @pytest.mark.usefixtures("path_to_anthology")
-class TestExtract(unittest.TestCase):
+class TestPDFReader(unittest.TestCase):
 
     def test_read_page(self):
         reader = PDFReader(self._path, start_page=27, end_page=50)
@@ -19,10 +18,10 @@ class TestExtract(unittest.TestCase):
         self.assertTrue("Learning to Understand" in " ".join(text_stack[0]))
         self.assertTrue("DeFormer" in " ".join(text_stack[-1]))
 
-    def test_schedule_read(self):
-        reader = ScheduleReader(self._path)
+    def test_read_schedule(self):
+        reader = PDFReader(self._path)
         count = 1
-        for texts in reader.reader.iterate_page_texts():
+        for texts in reader.iterate_page_texts():
             if count == 1:
                 self.assertGreater(len(texts), 0)
                 self.assertTrue("Monday, July 6" in " ".join(texts))

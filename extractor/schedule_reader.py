@@ -85,8 +85,8 @@ class PaperIndex():
 
     def __init__(self, day=None, time=None, session=None):
         self.day = day
-        self.time = None
-        self.session = None
+        self.time = time
+        self.session = session
 
     def clone(self):
         return PaperIndex(self.day, self.time, self.session)

@@ -1,0 +1,2 @@
+pdfminer.six==20200517
+pytest==5.4.3
